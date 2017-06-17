@@ -4,11 +4,15 @@ require("file-loader?emitFile=false!../index.html");
 // css
 import "../scss/index.scss";
 // js
-import rxdemo1 from "./rx_demo1";
+//import rxdemo1 from "./rx_demo1";
+//import chartjsdemo  from "./chartjs_demo";
+import tabledemo from './table_demo';
 
 function init() {
     console.log("init");
-    rxdemo1.init();
+    // rxdemo1.init();
+    // chartjsdemo.init();
+    tabledemo.init();
 }
 
 // ready

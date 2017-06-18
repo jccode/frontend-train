@@ -122,31 +122,6 @@ var ScrollList = (function() {
         last_st = st;
     }
 
-    
-
-    function fixqueue_test() {
-        // Create a fixed queue with some values.
-		var friends = FixedQueue( 3, [ "Sarah", "Kit" ] );
-		console.log( "Initial Values" );
-		console.log( friends );
-		// Add 2 items to the head.
-		var r1 = friends.unshift( "Tricia", "Anna" );
-		console.log( "Add [ Tricia, Anna ] to head." );
-		console.log( friends );
-		// Add 2 items to the tail.
-		friends.push( "Kim", "Joanna" );
-		console.log( "Add [ Kim, Joanna ] to tail." );
-		console.log( friends );
-		// Add explicit value outside array.
-		friends[ 5 ] = "Nancy";
-		console.log( "Add [ Nancy ] out of bounds (explicitly)." );
-		console.log( friends );
-		// Add another item to the tail.
-		friends.push( "Becca" );
-		console.log( "Add [ Becca ] to tail." );
-		console.log( friends );
-    }
-
 
     function initViewport(viewport, data) {
         // console.log( `data.length: ${data.length}, viewport capacity:${viewport.capacity()}` );

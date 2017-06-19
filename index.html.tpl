@@ -38,13 +38,18 @@
                     </ul>
                 </div><!--/.nav-collapse -->
             </div>
-p        </nav>
+        </nav>
 
         <div class="container">
 
-            <div class="starter-template">
+            <div class="starter-template" style="padding:40px 15px;">
                 <h1>Examples</h1>
-                <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
+                <ul class="list-group">
+                    <!-- 
+                    <li class="list-group-item"><a href="hello.html">hello</a></li>
+                    -->
+                    #{examples}
+                </ul>
             </div>
 
         </div><!-- /.container -->
@@ -54,6 +59,6 @@ p        </nav>
         <script src="node_modules/jquery/dist/jquery.min.js"></script>
         <!-- Include all compiled plugins (below), or include individual files as needed -->
         <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-        <script src="index.bundle.js"></script>
+        <!-- <script src="index.bundle.js"></script> -->
     </body>
 </html>

@@ -1,5 +1,5 @@
 // index.html RELOAD
-require("file-loader?emitFile=false!../../index.html");
+require("file-loader?emitFile=false!../../hello.html");
 // css
 import "../../scss/common.scss";
 // js

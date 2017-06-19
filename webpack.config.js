@@ -1,25 +1,57 @@
+"use strict";
 
-var path = require('path');
+require('babel-polyfill');
+
+const fs = require('fs');
+const path = require('path');
+const webpack = require('webpack');
+
+const PATHS = {
+    src: path.join(__dirname, 'app'),
+    dist: path.join(__dirname, 'dist')
+};
+
+// babelrc
+const babelrc = fs.readFileSync(path.join(__dirname, '.babelrc'));
+let babelConfig;
+try {
+    babelConfig = JSON.parse(babelrc);
+} catch (err) {
+    console.error('==> ERROR: Error parsing your .babelrc.');
+    console.error(err);
+}
+
+function getDirectories (srcpath) {
+  return fs.readdirSync(srcpath)
+    .filter(file => fs.lstatSync(path.join(srcpath, file)).isDirectory())
+}
+
+const apps = getDirectories(PATHS.src);
+const entry = apps.reduce((total, curr) => {
+    let arr = ["babel-polyfill", path.join(PATHS.src, curr, "index.js")];
+    total[curr] = arr;
+    return total;
+}, {});
+
 
 module.exports = {
-    entry: './app/index.js',
+
+    context: PATHS.src,
+    
+    entry: entry,
+    
     output: {
-        filename: 'bundle.js',
-        path: path.resolve(__dirname, 'dist')
+        path: PATHS.dist,
+        filename: '[name].bundle.js',
+        chunkFilename: "[id].chunk.js",
+        publicPath: '/'
     },
+    
     devtool: "cheap-eval-source-map",
     
     module: {
         rules: [
-            {
-                test: /\.html$/,
-                use: [ {
-                    loader: 'html-loader',
-                    options: {
-                        minimize: true
-                    }
-                }]
-            },
+            {test: /\.html$/, use: [ {loader: 'html-loader', options: {minimize: true}}]},
             {
                 test: /\.scss$/,
                 use: [{
@@ -40,12 +72,8 @@ module.exports = {
                     }
                 }]
             },
-            {
-                test: /\.woff2?$|\.ttf$|\.eot$|\.svg$/,
-                use: [{
-                    loader: "file-loader"
-                }]
-            }
+            {test: /\.woff2?$|\.ttf$|\.eot$|\.svg$/, use: [{loader: "file-loader"}]},
+            {test: /\.jsx?$/, loader: "babel-loader", exclude: /node_modules/, query: babelConfig},
         ]
     }
 };

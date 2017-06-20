@@ -151,19 +151,30 @@ var ScrollList = (function() {
             return;
         }
 
-        this.$el  = $(el);
-        this.data = data;
-        this.opts = $.extend({}, default_opts, opts);        
-        this.viewport = new Viewport(this.opts.viewport);
+        // one DOM element can bound to only on ScrollList instance
+        var $el = $(el);
 
-        this.viewport.on(Viewport.EVENT.DATA_PREPENDED, this.prependListener.bind(this));
-        this.viewport.on(Viewport.EVENT.DATA_APPENDED, this.appendListener.bind(this));
-        this.viewport.on(Viewport.EVENT.DATA_DELETED, this.deleteListener.bind(this));
-        
-        this.$el.on("scroll", _.debounce(scrollHandler, 500).bind(this));
+        var instance = $el.data("scrollList");
+        var self = instance || this;
 
-        //initViewport(this.viewport, this.data);
-        this.initViewport(0);
+        self.data = data;
+        self.opts = $.extend({}, default_opts, opts);
+
+        if (!instance) {
+            this.$el  = $el;
+            this.viewport = new Viewport(this.opts.viewport);
+            this.viewport.on(Viewport.EVENT.DATA_PREPENDED, this.prependListener.bind(this));
+            this.viewport.on(Viewport.EVENT.DATA_APPENDED, this.appendListener.bind(this));
+            this.viewport.on(Viewport.EVENT.DATA_DELETED, this.deleteListener.bind(this));
+
+            this.$el.on("scroll", _.debounce(scrollHandler, 500).bind(this));
+            this.$el.data("scrollList", this);
+        } else {
+            instance.$el.children().remove();
+            instance.viewport.clear();
+        }
+
+        self.initViewport(0);
     }
 
     SL.prototype = {
@@ -174,8 +185,8 @@ var ScrollList = (function() {
                 start = 0;
             }
             var end = _.min([len, start + capacity]);
-            if( end == len ){
-                start = _.min([start, len - capacity]);
+            if( end == len && len - capacity >= 0 && len - capacity < start){
+                start = len - capacity;
             }
 
             this.viewport.append(_.range(start, end));
@@ -278,6 +289,12 @@ var ScrollList = (function() {
             });
             
             return content.join("");
+        }, 
+
+        destroy: function () {
+            this.data = null;
+            this.viewport = null;
+            this.$el.off("scroll");
         }
     }
     

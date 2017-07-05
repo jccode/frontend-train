@@ -3,11 +3,15 @@ import Rx from 'rx';
 function init() {
     console.log("rx demo1 init");
     complete_drag_demo();
+    merge_test();
 }
 
 const next = (x) => console.log("Next: "+x);
 const err = (err) => console.log("Error: "+err);
 const complete = () => console.log("Complete");
+
+
+
 
 /**
  * REF: https://egghead.io/lessons/javascript-simple-drag-and-drop-with-observables
@@ -118,11 +122,26 @@ function demo1() {
 }
 
 
+function flatMapLatest_test() {
+    var range$ = Rx.Observable.range(1, 3);
+    range$
+        .flatMap(x => Rx.Observable.from([x+'a', x+'b']))
+        .subscribe(next, err, complete);
+    range$.flatMapLatest(x => Rx.Observable.from([x+'a', x+'b']))
+        .subscribe(next, err, complete);
+}
+
+function merge_test() {
+    const source1 = Rx.Observable.interval(100).timeInterval()
+              .map(i => `First: ${i.value}, time: ${i.interval}`);
+    const source2 = Rx.Observable.interval(150).timeInterval()
+              .map(i => `Second: ${i.value}, time: ${i.interval}`);
+
+    //Rx.Observable.merge(source1, source2).take(10).subscribe(next, err, complete);
+    Rx.Observable.combineLatest(source1, source2).take(10).subscribe(next, err, complete);
+}
 
 
 
 export default { init };
-
-
-
 

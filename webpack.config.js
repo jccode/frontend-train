@@ -47,7 +47,7 @@ module.exports = {
         publicPath: '/'
     },
     
-    devtool: "cheap-eval-source-map",
+    devtool: "source-map",//"cheap-eval-source-map",
     
     module: {
         rules: [

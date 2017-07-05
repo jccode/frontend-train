@@ -63,6 +63,12 @@ Viewport.prototype = (function() {
             }
         },
 
+        set: function(list) {
+            _.isArray(list) ?
+                FixedQueue.push.apply(this.contents, list) :
+                this.contents.push(list);
+        },
+
         clear: function() {
             this.contents.splice(0, this.contents.length);
         }, 
@@ -81,6 +87,10 @@ Viewport.prototype = (function() {
 
         last: function() {
             return this.contents[this.contents.length - 1];
+        },
+
+        indexOf: function(idx) {
+            return this.contents.indexOf(idx);
         }
     };
     
@@ -189,7 +199,11 @@ var ScrollList = (function() {
                 start = len - capacity;
             }
 
-            this.viewport.append(_.range(start, end));
+            // this.viewport.append(_.range(start, end));
+
+            var list = _.range(start, end);
+            this.viewport.set(list);
+            this.$el.html(this.buildHtml(list));
         },
         
         scrollTopListener: function () {
@@ -253,6 +267,7 @@ var ScrollList = (function() {
 
         appendListener: function (list) {
             console.log( "append:" );
+            console.log( `append: ${list.join(",")}` );
             
             this.$el.html(this.$el.html() + this.buildHtml(list));
         }, 
@@ -260,7 +275,7 @@ var ScrollList = (function() {
         deleteListener: function (list) {
             console.log("delete:");
             // console.log( `current: ${this.viewport.contents.join(",")}`  );
-            // console.log( `delete: ${list.join(",")}` );
+            console.log( `delete: ${list.join(",")}` );
 
             var capacity = this.viewport.capacity(),
                 len = list.length,
@@ -269,7 +284,8 @@ var ScrollList = (function() {
                 ds = list[0],               // deleted list start
                 de = list[len - 1];         // deleted list end
             if( ds > ve ) {
-                this.$el.children(":gt(" + (capacity - len) + ")").remove();
+                // this.$el.children(":gt(" + (capacity - len) + ")").remove(); 
+                this.$el.children(":gt(" + (capacity-1) + ")").remove();
             }
             else if ( de < vs) {
                 this.$el.children(":lt(" + len + ")").remove();
@@ -289,6 +305,23 @@ var ScrollList = (function() {
             });
             
             return content.join("");
+        },
+
+        scrollIntoView: function(index) {
+            // console.log( "scrollIntoView: "+index );
+            var index = parseInt(index),
+                vs = this.viewport.first(),
+                ve = this.viewport.last();
+            if(index >= vs && index <= ve) {
+            }
+            else {
+                this.initViewport(index);
+            }
+            var idx = this.viewport.indexOf(index);
+            // var flag = index < vs ? false : true;
+            this.$el.children().removeClass("active").eq(idx).addClass("active").get(0).scrollIntoView(true);
+            // console.log( "scroll into view: this" );
+            // console.log( this );
         }, 
 
         destroy: function () {

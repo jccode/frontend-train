@@ -19,7 +19,7 @@ var SVG = (function() {
 
     function _load(path) {
         var p = $.Deferred();
-        d3.xml(path, (err, xml) => {
+        d3.xml(path, function(err, xml) {
             if (err) {
                 p.reject(err);
             }
@@ -50,7 +50,7 @@ var SVG = (function() {
                     .attr("width", width + margin.left + margin.right)
                     .attr("height", height + margin.top + margin.bottom)
                     .append("g")
-                    .attr("transform", "translate(" + margin.left + "," + margin.right + ")" )
+                    .attr("transform", "translate(" + margin.left + "," + margin.right + ")")
                     .call(zoom);
 
             var rect = svg.append("rect")

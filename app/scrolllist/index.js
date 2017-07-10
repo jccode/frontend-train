@@ -5,13 +5,20 @@ require("file-loader?emitFile=false!../../scrolllist.html");
 import "../../scss/scrolllist.scss";
 
 // js
+import $ from 'jquery';
+import 'jquery-ui/themes/base/core.css';
+import 'jquery-ui/themes/base/theme.css';
+import 'jquery-ui/themes/base/draggable.css';
+import 'jquery-ui/ui/core';
+import 'jquery-ui/ui/widgets/draggable';
+
 import moment from 'moment';
 import _ from 'underscore';
 import ScrollList from './scroll_list';
 
 
 // ready
-jQuery($ => {
+$($ => {
     init();
 })
 
@@ -50,5 +57,46 @@ function bindEvent() {
     $("#sv-btn").on("click", function() {
         var idx = $("#sv-idx").val();
         sl.scrollIntoView(idx);
+    });
+
+
+    var w0;
+    $(".table-list .thead div").draggable({
+        containment: ".thead",
+        axis: "x",
+        handle: "i.fa",
+        start: (e, ui) => {
+            console.log("start");
+            console.log( e );
+            console.log( ui );
+            w0 = ui.helper.width();
+        },
+        drag: (e, ui) => {
+            console.log("drag");
+            console.log( e );
+            console.log( ui );
+            // var $el = $(e.target);
+            // $el.width($el.width() + ui.position.left);
+            var $el = ui.helper;
+            
+            /*
+            _.debounce(()=> {
+            $el.css({
+                left:0,
+                top:0,
+                width: w0+ui.position.left
+            });
+                
+            }, 500)();
+             */
+        },
+        stop: (e, ui) => {
+            console.log( "stop" );
+            ui.helper.css({
+                left:0,
+                top:0,
+                width: w0+ui.position.left
+            });
+        }
     });
 }

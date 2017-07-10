@@ -1,6 +1,30 @@
 
 @import 'common';
 
-.thead div {
-    background: #ccc;
+
+.table-list {
+    
+    .thead > div {
+        background: #ccc;
+        text-align: center;
+
+        /*
+        &:after {
+            @include fa-icon(); 
+            content: $fa-var-ellipsis-v;
+
+            float: right;
+            padding-top: 3px;
+        }
+        */
+        i.fa {
+            float: right;
+            padding-top: 3px;
+            cursor: e-resize;
+        }
+    }
+
+    .tbody > div {
+        text-align: center;
+    }
 }

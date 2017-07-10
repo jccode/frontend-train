@@ -17,7 +17,9 @@
     "chartjs-plugin-zoom": "^0.5.0",
     "d3": "^4.9.1",
     "echarts": "^3.6.2",
+    "font-awesome": "^4.7.0",
     "jquery": "^1.12.4",
+    "jquery-ui": "^1.12.1",
     "moment": "^2.18.1",
     "rx": "^4.1.0",
     "underscore": "^1.8.3"
@@ -35,6 +37,8 @@
     "node-sass": "^4.5.2",
     "sass-loader": "^6.0.3",
     "style-loader": "^0.16.1",
+    "url-loader": "^0.5.9",
+    "video.js": "^6.2.0",
     "webpack": "^2.4.1",
     "webpack-dev-server": "^2.4.5"
   }

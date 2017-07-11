@@ -9,21 +9,22 @@
         text-align: center;
         //border: 1px solid #f00;
 
-        /*
+        
         &:after {
             @include fa-icon(); 
             content: $fa-var-ellipsis-v;
 
             float: right;
             padding-top: 3px;
-        }
-        */
-        i.fa {
-            float: right;
-            padding-top: 3px;
-            cursor: e-resize;
             margin-right: -15px;
         }
+        
+        /* i.fa { */
+        /*     float: right; */
+        /*     padding-top: 3px; */
+        /*     cursor: e-resize; */
+        /*     margin-right: -15px; */
+        /* } */
     }
 
     .tbody > div {

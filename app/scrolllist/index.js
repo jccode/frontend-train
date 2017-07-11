@@ -25,6 +25,7 @@ $($ => {
 })
 
 var sl;
+const STYLESHEET_ID = "col_define";
 
 function init() {
     console.log("init");
@@ -34,12 +35,13 @@ function init() {
         viewport: 100,
         incr: 30,
         scroll_throttle: 10,
-        template: `<div class="row" id="row_<%= _idx %>"><div class="col-xs-3"><%= _idx %></div><div class="col-xs-3"><%= time %></div><div class="col-xs-3"><%= CURR_IN %></div><div class="col-xs-3"><%= CURR_OUT %></div></div>`
+        template: `<div class="row" id="row_<%= _idx %>"><div class="col-xs-3 col_0"><%= _idx %></div><div class="col-xs-3 col_1"><%= time %></div><div class="col-xs-3 col_2"><%= CURR_IN %></div><div class="col-xs-3 col_3"><%= CURR_OUT %></div></div>`
     };
     sl = new ScrollList($("#tbody"), data, opts);
     // sl.initViewport(800);
 
     bindEvent();
+
 }
 
 function init_data() {
@@ -130,5 +132,36 @@ const after_resize = (e, ui) => {
         delta_width = ui.originalSize.width - ui.size.width,
         row_width = $row.width();
     console.log( "row width:"+row_width + ", delta_width:"+delta_width);
-    $row.eq(0).width(row_width - delta_width);
+    console.log( "el width:" + $el.width() + ", outerwidth:" + $el.outerWidth()) ;
+
+    
+    const sheet = CSS.getStyleSheetById(STYLESHEET_ID);
+    if (!sheet) {
+        CSS.addStyleSheet(STYLESHEET_ID);
+    }
+    if (!sheet.rules[idx]) {
+        // 这里 addRule 会比较麻烦. 因为这里只能按下标获取. 如果要动态加,对于该下标前面缺失的也要定义上.
+        // 要不然下次按下标会取不到.
+        // 可以第一次把所有的定义都生成. 然后这里直接获取.
+    }
+    sheet.rules[idx].style.width = `${$el.outerWidth()}px`;
 }
+
+
+const CSS = (function() {
+
+    return {
+        getStyleSheetById: (id) => {
+            return _.find(document.styleSheets, (s) => s.ownerNode.id === id);
+        }, 
+        addStyleSheet: (id) => {
+            $("head").append(`<style id="${id}" type="text/css"></style>`);
+        },
+        removeStyleSheet: (id) => {
+            $(`#${id}`).remove();
+        }
+    };
+    
+})();
+
+window.CSS = CSS;

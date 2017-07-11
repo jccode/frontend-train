@@ -79,7 +79,7 @@ module.exports = {
             {test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url-loader?limit=10000&mimetype=application/font-woff" },
             {test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "file-loader" },
 
-            {test: /\.(png|jpg|ico|gif)$/, loader: 'file-loader'},
+            {test: /\.(png|jpg|ico|gif|swf)$/, loader: 'file-loader'},
             
             {test: /\.flv$|\.mp4$/, use: [{loader: "file-loader"}]},
             {test: /\.jsx?$/, loader: "babel-loader", exclude: /node_modules/, query: babelConfig},

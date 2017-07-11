@@ -8,9 +8,11 @@ import "../../scss/scrolllist.scss";
 import $ from 'jquery';
 import 'jquery-ui/themes/base/core.css';
 import 'jquery-ui/themes/base/theme.css';
-import 'jquery-ui/themes/base/draggable.css';
+//import 'jquery-ui/themes/base/draggable.css';
+import 'jquery-ui/themes/base/resizable.css';
 import 'jquery-ui/ui/core';
-import 'jquery-ui/ui/widgets/draggable';
+//import 'jquery-ui/ui/widgets/draggable';
+import 'jquery-ui/ui/widgets/resizable';
 
 import moment from 'moment';
 import _ from 'underscore';
@@ -60,6 +62,7 @@ function bindEvent() {
     });
 
 
+    /*
     var w0;
     $(".table-list .thead div").draggable({
         containment: ".thead",
@@ -79,16 +82,15 @@ function bindEvent() {
             // $el.width($el.width() + ui.position.left);
             var $el = ui.helper;
             
-            /*
-            _.debounce(()=> {
-            $el.css({
-                left:0,
-                top:0,
-                width: w0+ui.position.left
-            });
+            // _.debounce(()=> {
+            // $el.css({
+            //     left:0,
+            //     top:0,
+            //     width: w0+ui.position.left
+            // });
                 
-            }, 500)();
-             */
+            // }, 500)();
+
         },
         stop: (e, ui) => {
             console.log( "stop" );
@@ -99,4 +101,34 @@ function bindEvent() {
             });
         }
     });
+     */
+
+    $(".table-list .thead div").resizable({
+        handles: "e",
+        start: (e, ui) => {
+            console.log( 'start' );
+        },
+        resize: (e, ui) => {
+            console.log( 'resize' );
+        },
+        stop: after_resize
+    });
+    
+}
+
+const after_resize = (e, ui) => {
+    console.log( 'stop' );
+    //console.log( e );
+    console.log( ui );
+    var $el = ui.element,
+        idx = $(".thead > div").index($el),
+        $col = $(".tbody > .row > div:nth-child(" + (idx+1) + ")");
+    //$col.width(ui.size.width);
+    //console.log( $col );
+
+    var $row = $(".tbody > .row"), 
+        delta_width = ui.originalSize.width - ui.size.width,
+        row_width = $row.width();
+    console.log( "row width:"+row_width + ", delta_width:"+delta_width);
+    $row.eq(0).width(row_width - delta_width);
 }

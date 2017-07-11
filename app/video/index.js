@@ -14,5 +14,18 @@ jQuery($ => {
 
 function init() {
     console.log("video");
+    //flvjsTest();
 }
 
+const flvjsTest = () => {
+    if (flvjs.isSupported()) {
+        var videoElement = document.getElementById('videoElement');
+        var flvPlayer = flvjs.createPlayer({
+            type: 'flv',
+            url: 'images/1.flv'
+        });
+        flvPlayer.attachMediaElement(videoElement);
+        flvPlayer.load();
+        flvPlayer.play();
+    }
+}

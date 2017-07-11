@@ -53,18 +53,21 @@ p        </nav>
 
                 <!-- <video src="http://183.56.149.29/vhot2.qqvideo.tc.qq.com/h0523f5da3h.p712.1.mp4?sdtfrom=v1010&guid=926a632ad1f684f3dfc3327271460eae&vkey=24C75A440B3C91D492AF02726EE2164B94F4FCEFFC9047FF841574CC633E6BA80E790FFF76C83C1C61E0E0DAFC1C97AC183613FE2AFED3105089EA0708B5EB0FF2AF74C01276549E5DCA903BE2C34F47D32C6DCD86EC298D93BA92999F47CEF956153AF6EDC87600FDBFE8819C728807C19FEC7FFFCE09E5&platform=2" controls></video> -->
                 
-                <!-- <video src="images/2.mp4" controls></video> -->
+                <!-- <video id="videoElement" controls></video> -->
 
+                
                 <video id="my-video" class="video-js" controls preload="auto" 
                      data-setup="{}">
-                    <!-- <source src="images/2.mp4" type='video/mp4'> -->
-                    <source src="images/1.flv" type='video/flv'>
+                    <source src="images/2.mp4" type='video/mp4'>
+                    <!-- <source src="images/1.flv" type='video/flv'> -->
                     <!-- <source src="MY_VIDEO.webm" type='video/webm'> -->
+
                     <p class="vjs-no-js">
                         To view this video please enable JavaScript, and consider upgrading to a web browser that
                         <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
                     </p>
                 </video>
+                
                 
             </div>
 
@@ -76,6 +79,7 @@ p        </nav>
         <!-- Include all compiled plugins (below), or include individual files as needed -->
         <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
         <script src="node_modules/video.js/dist/video.min.js"></script>
+        <script src="node_modules/flv.js/dist/flv.min.js"></script>
         <script src="video.bundle.js"></script>
     </body>
 </html>

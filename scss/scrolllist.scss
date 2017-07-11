@@ -7,6 +7,7 @@
     .thead > div {
         background: #ccc;
         text-align: center;
+        //border: 1px solid #f00;
 
         /*
         &:after {
@@ -21,6 +22,7 @@
             float: right;
             padding-top: 3px;
             cursor: e-resize;
+            margin-right: -15px;
         }
     }
 

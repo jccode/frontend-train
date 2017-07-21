@@ -10,6 +10,7 @@
         <!-- Bootstrap -->
         <link href="node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
         <link href="node_modules/video.js/dist/video-js.css" rel="stylesheet">
+        <link href="node_modules/videojs-playlist-ui/dist/videojs-playlist-ui.css" rel="stylesheet">
 
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -58,8 +59,8 @@ p        </nav>
                 
                 <video id="my-video" class="video-js" controls preload="auto" style="width:100%;height:400px"
                        data-setup='{"techOrder":["html5", "flvjs", "flash"]}'><!-- "techOrder":["html5", "flvjs", "flash"] -->
-                    <!-- <source src="images/2.mp4" type='video/mp4'> -->
-                    <source src="images/1.flv" type='video/x-flv'>
+                    <!-- <source src="http://201606mp4.11bubu.com/20150914/70/1/xml/91_6b8e1863e8ef486b94af5074adf80683.mp4" type='video/mp4'> -->
+                    <!-- <source src="images/1.flv" type='video/x-flv'> -->
                     <!-- <source src="MY_VIDEO.webm" type='video/webm'> -->
                     <!-- <source src="http://www.mediacollege.com/video-gallery/testclips/20051210-w50s.flv" type='video/x-flv'> -->
 
@@ -68,7 +69,7 @@ p        </nav>
                         <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
                     </p>
                 </video>
-                
+                <div class="vjs-playlist"> </div>
                 
             </div>
 
@@ -84,6 +85,8 @@ p        </nav>
         <script src="node_modules/videojs-flash/dist/videojs-flash.min.js"></script>
         <script src="node_modules/flv.js/dist/flv.min.js"></script>
         <script src="node_modules/videojs-flvjs/dist/videojs-flvjs.min.js"></script>
+        <script src="node_modules/videojs-playlist/dist/videojs-playlist.min.js"></script>
+        <script src="node_modules/videojs-playlist-ui/dist/videojs-playlist-ui.min.js"></script>
         
         <script src="video.bundle.js"></script>
     </body>

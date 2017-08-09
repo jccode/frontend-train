@@ -1,0 +1,21 @@
+
+.map-container {
+    position: relative;
+
+    .map-opts {
+        position: absolute;
+        top: 5px;
+        right: 15px;
+    }
+}
+
+/* Override BMapLib DrawingManager */
+.BMapLib_Drawing.BMap_noprint.anchorTR {
+    /* display: none; */
+}
+
+#map label {
+    max-width: none;
+    min-width: 90px;
+
+}

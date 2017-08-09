@@ -117,17 +117,27 @@ var ScrollList = (function() {
             ch = $el.height(),            // container height
             sh = $el.get(0).scrollHeight, // scroll height
             st = $el.scrollTop();         // scroll top
+
+        console.log(`----->>>> scrollHeight:${sh}; scrollTop:${st}; lastScrollTop:${last_st}; throttle:${throttle}`);
         
         if (st > last_st) { // scroll down
             if( sh - st - ch < throttle ){
                 this.scrollBottomListener.apply(this);
             }
         }
-        else { // scroll up
+        else if (st < last_st) { // scroll up
             if( st < throttle ){
                 this.scrollTopListener.apply(this);
             }
         }
+        else { // st == last_st
+            if( st === 0 ) {
+                this.scrollTopListener.apply(this);
+            } else {
+                this.scrollBottomListener.apply(this);
+            }
+        }
+
         
         // update last scrollTop
         last_st = st;
@@ -178,7 +188,7 @@ var ScrollList = (function() {
             this.viewport.on(Viewport.EVENT.DATA_APPENDED, this.appendListener.bind(this));
             this.viewport.on(Viewport.EVENT.DATA_DELETED, this.deleteListener.bind(this));
 
-            this.$el.on("scroll", _.debounce(scrollHandler, 500).bind(this));
+            this.$el.on("scroll", _.throttle(scrollHandler, 500).bind(this));
             this.$el.data("scrollList", this);
         } else {
             instance.$el.children().remove();
